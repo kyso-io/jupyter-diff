@@ -8,7 +8,6 @@ const App = () => {
 
 const AppWrapper = () => {
   return (
-    // <Router basename='vbdime'>
     <Router>
       <App />
     </Router>
