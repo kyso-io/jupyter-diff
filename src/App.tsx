@@ -1,8 +1,8 @@
-import { BrowserRouter as Router, useRoutes } from "react-router-dom";
-import JupyterNotebookDiffs from "./components/JupyterNotebookDiffs";
+import { BrowserRouter as Router, useRoutes } from 'react-router-dom';
+import JupyterNotebookDiffs from './components/JupyterNotebookDiffs';
 
 const App = () => {
-  const routes = useRoutes([{ path: "/", element: <JupyterNotebookDiffs /> }]);
+  const routes = useRoutes([{ path: '/', element: <JupyterNotebookDiffs /> }]);
   return routes;
 };
 

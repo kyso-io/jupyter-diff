@@ -3,7 +3,7 @@ import { MathJaxTypesetter } from '@jupyterlab/mathjax2';
 import * as nbformat from '@jupyterlab/nbformat';
 import { RenderMimeRegistry } from '@jupyterlab/rendermime';
 import { Panel, Widget } from '@lumino/widgets';
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import { IDiffEntry } from 'nbdime/lib/diff/diffentries';
 import { NotebookDiffModel } from 'nbdime/lib/diff/model';
 import { NotebookDiffWidget } from 'nbdime/lib/diff/widget';
@@ -40,22 +40,24 @@ const JupyterNotebookDiffs = () => {
   const [cookies] = useCookies(['kyso-jwt-token']);
 
   useEffect(() => {
+    const reportId: string | null = searchParams.get('reportId');
     const sourceFileId: string | null = searchParams.get('sourceFileId');
     const targetFileId: string | null = searchParams.get('targetFileId');
-    const token: string | null = cookies.hasOwnProperty('kyso-jwt-token') && cookies['kyso-jwt-token'] ? cookies['kyso-jwt-token'] : null;
-    if (!sourceFileId || !targetFileId || !token) {
-      console.log({ sourceFileId, targetFileId, token });
+    const token: string | null = searchParams.get('token') ? searchParams.get('token') : cookies.hasOwnProperty('kyso-jwt-token') && cookies['kyso-jwt-token'] ? cookies['kyso-jwt-token'] : null;
+    if (!reportId || !sourceFileId || !targetFileId || !token) {
       return;
     }
+    // TODO: change to production url
     axios
-      .get(`/api/v1/reports/diff/63a18b7f9e035917e4cd9d84?sourceFileId=${sourceFileId}&targetFileId=${targetFileId}`, {
+      .get(`https://lo.kyso.io/api/v1/reports/diff/${reportId}?sourceFileId=${sourceFileId}&targetFileId=${targetFileId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
-      .then((res) => {
+      .then((res: AxiosResponse) => {
         setApiResult(res.data.data);
-      });
+      })
+      .finally(() => {});
   }, [cookies, searchParams]);
 
   useEffect(() => {
@@ -67,7 +69,7 @@ const JupyterNotebookDiffs = () => {
   }, [apiResult]);
 
   const showDiff = () => {
-    let rendermime = new RenderMimeRegistry({
+    const rendermime = new RenderMimeRegistry({
       initialFactories: rendererFactories,
       sanitizer: defaultSanitizer,
       latexTypesetter: new MathJaxTypesetter({
@@ -92,11 +94,9 @@ const JupyterNotebookDiffs = () => {
         panel.update();
       };
     });
-    // diffWidget = nbdWidget;
-    // return work;
   };
 
-  return <div id="nbdime-root" className="nbdime-root"></div>;
+  return <div id="nbdime-root" className="nbdime-root" />;
 };
 
 export default JupyterNotebookDiffs;
