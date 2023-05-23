@@ -68,13 +68,15 @@
   "scripts": {
     "start": "PORT=3003 GENERATE_SOURCEMAP=false react-scripts start",
     "dev": "npm run start",
+    "clean": "rm -rf dist",
     "format": "prettier --write \"src/**/*.ts*\"",
-    "build": "BUILD_PATH='../../public/nbdime' react-scripts build",
+    "build": "BUILD_PATH='./dist' react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "check-types": "tsc --noEmit --pretty",
     "prettier": "prettier --write \"./src/**/*.{ts,js}\"",
-    "prepare": "is-ci || husky install"
+    "prepare": "is-ci || husky install",
+    "serve": "serve ./dist"
   },
   "eslintConfig": {
     "extends": [

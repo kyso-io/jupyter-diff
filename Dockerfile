@@ -31,8 +31,8 @@ USER node
 ### Change the working directory to /app
 WORKDIR /app
 ## Copy the complete /app builder dir --- FIXME(sto): We have to check that!!!
-COPY --chown=node:node --from=builder /app/. ./
+COPY --chown=node:node --from=builder /app/dist/. ./
 ## Disable next telemetry usage
 ENV NEXT_TELEMETRY_DISABLED 1
 ## Run the compiled version
-CMD ["npm", "run", "start"]
+CMD ["serve"]
