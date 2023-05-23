@@ -17,28 +17,12 @@ docker-build:
       REF_TYPE="Branch"
       GIT_REF="$CI_COMMIT_BRANCH"
     fi
-    sed \
+    sed -i \
       -e "s%__BUILD_DATE__%$BUILD_DATE%g" \
       -e "s%__GIT_SHA__%$CI_COMMIT_SHA%g" \
       -e "s%__REF_TYPE__%$REF_TYPE%g" \
       -e "s%__GIT_REF__%$GIT_REF%g" \
-      tmpl/v.html > public/v.html
-
-dtrack-check:
-  stage: source_qa
-  image: registry.kyso.io/docker/node-builder:16.15.1-alpine3.16
-  allow_failure: true
-
-  before_script:
-  - !reference [.docker-config, before_script]
-  - !reference [.npm-config, before_script]
-  
-  script:
-  - npm install -g @fjbarrena/dtrack-cli
-  - npm install --global @cyclonedx/cyclonedx-npm
-  - npm install
-  - cyclonedx-npm --output-file bom.xml
-  - dtrack-cli --server https://dtrack.dev.kyso.io --bom-path bom.xml --api-key mhJ7ZcJylUH2WY5cFsU2zs87kH9wLABu --project-name jupyter-diff --project-version latest --auto-create true
+      public/v.html
 
 variables:
   DOCKER_BUILDKIT: 1

@@ -1,9 +1,8 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # env
-.npmrc*
+.npmrc.*
 .env
-.tsconfig-lint.json
 
 # dependencies
 /node_modules
@@ -39,6 +38,3 @@ local
 
 # vercel
 .vercel
-
-# v.html
-/public/v.html
