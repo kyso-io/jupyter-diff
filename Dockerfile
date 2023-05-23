@@ -36,7 +36,10 @@ COPY --chown=node:node --from=builder /app/dist/. ./
 ENV NEXT_TELEMETRY_DISABLED 1
 
 # Install serve to serve static files
+USER root
 RUN npm install -g serve --yes
+USER node
+
 EXPOSE 3000
 
 ## Run the compiled version
