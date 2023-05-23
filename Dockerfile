@@ -34,5 +34,10 @@ WORKDIR /app
 COPY --chown=node:node --from=builder /app/dist/. ./
 ## Disable next telemetry usage
 ENV NEXT_TELEMETRY_DISABLED 1
+
+# Install serve to serve static files
+RUN npm install -g serve --yes
+EXPOSE 3000
+
 ## Run the compiled version
-CMD ["npx", "serve"]
+CMD ["serve"]
