@@ -35,4 +35,4 @@ COPY --chown=node:node --from=builder /app/dist/. ./
 ## Disable next telemetry usage
 ENV NEXT_TELEMETRY_DISABLED 1
 ## Run the compiled version
-CMD ["serve"]
+CMD ["npx", "serve"]
