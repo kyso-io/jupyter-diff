@@ -9,6 +9,7 @@ const App = () => {
 const AppWrapper = () => {
   return (
     <Router>
+      <h1>hola</h1>
       <App />
     </Router>
   );

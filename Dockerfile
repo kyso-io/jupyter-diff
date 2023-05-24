@@ -20,27 +20,18 @@ RUN npm run clean && npm run build
 #   && npm run export
 # and use the out/ dir as the exported application.
 
-## Production image
-FROM ${SERVICE_IMG}:${SERVICE_TAG} AS service
+# production environment
+FROM nginx:stable-alpine
 # Set the NODE_ENV value from the args
 ARG NODE_ENV=production
 ## Export the NODE_ENV to the container environment
 ENV NODE_ENV=${NODE_ENV}
 ### For security reasons don't run as root
 USER node
+
 ### Change the working directory to /app
-WORKDIR /app
-## Copy the complete /app builder dir --- FIXME(sto): We have to check that!!!
-COPY --chown=node:node --from=builder /app/dist/. ./
-## Disable next telemetry usage
-ENV NEXT_TELEMETRY_DISABLED 1
-
-# Install serve to serve static files
-USER root
-RUN npm install -g serve --yes
-USER node
-
+COPY --chown=node:node from=build /app/dist /usr/share/nginx/html
+COPY --chown=node:node from=build /app/nginx/nginx.conf /etc/nginx/conf.d/default.conf
 EXPOSE 3000
 
-## Run the compiled version
-CMD ["serve"]
+CMD ["nginx", "-g", "daemon off;"]
