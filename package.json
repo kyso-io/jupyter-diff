@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "homepage": "/kyjupdiff",
+  "proxy": "http://localhost:3000",
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.12.0",
     "@jupyterlab/application": "^2 || ^3",
