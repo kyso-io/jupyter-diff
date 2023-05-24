@@ -96,7 +96,12 @@ const JupyterNotebookDiffs = () => {
     });
   };
 
-  return <div id="nbdime-root" className="nbdime-root" />;
+  return (
+    <>
+      <h1>chachi</h1>
+      <div id="nbdime-root" className="nbdime-root" />
+    </>
+  );
 };
 
 export default JupyterNotebookDiffs;

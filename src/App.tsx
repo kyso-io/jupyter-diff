@@ -1,17 +1,17 @@
-import { BrowserRouter, useRoutes } from 'react-router-dom';
+import { RouterProvider, createBrowserRouter, useRoutes } from 'react-router-dom';
 import JupyterNotebookDiffs from './components/JupyterNotebookDiffs';
+import React from 'react';
 
-const App = () => {
-  const routes = useRoutes([{ path: '/', element: <JupyterNotebookDiffs /> }]);
-  return routes;
-};
+const router = createBrowserRouter([{ path: '/', element: <JupyterNotebookDiffs /> }]);
 
 const AppWrapper = () => {
   return (
-    <BrowserRouter basename="{process.env.PUBLIC_URL}">
+    <>
       <h1>hola</h1>
-      <App />
-    </BrowserRouter>
+      <React.StrictMode>
+        <RouterProvider router={router} />
+      </React.StrictMode>
+    </>
   );
 };
 
