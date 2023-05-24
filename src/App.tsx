@@ -8,7 +8,7 @@ const App = () => {
 
 const AppWrapper = () => {
   return (
-    <Router>
+    <Router basename=".">
       <h1>hola</h1>
       <App />
     </Router>
