@@ -3,10 +3,10 @@ ARG BUILDER_IMG=registry.kyso.io/kyso-io/microfrontends/jupyter-diff
 ARG BUILDER_TAG=builder
 ARG SERVICE_IMG=registry.kyso.io/docker/node
 ARG SERVICE_TAG=latest
-ENV PUBLIC_URL=/kyjupdiff
 
 # Builder image
 FROM ${BUILDER_IMG}:${BUILDER_TAG} AS builder
+ENV PUBLIC_URL=/kyjupdiff
 # Install rimraf
 RUN npm install -g rimraf 
 # Change the working directory to /app
@@ -24,6 +24,7 @@ RUN npm run clean && npm run build
 
 # production environment
 FROM nginx:stable-alpine
+ENV PUBLIC_URL=/kyjupdiff
 # Set the NODE_ENV value from the args
 ARG NODE_ENV=production
 ## Export the NODE_ENV to the container environment
