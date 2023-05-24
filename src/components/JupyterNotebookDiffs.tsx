@@ -39,6 +39,12 @@ const JupyterNotebookDiffs = () => {
   const [searchParams] = useSearchParams();
   const [cookies] = useCookies(['kyso-jwt-token']);
 
+  axios
+    .get(`../api/v1/reports/diff`, {})
+    .then((res: AxiosResponse) => {
+      setApiResult(res.data.data);
+    })
+    .finally(() => {});
   useEffect(() => {
     const reportId: string | null = searchParams.get('reportId');
     const sourceFileId: string | null = searchParams.get('sourceFileId');
@@ -49,7 +55,7 @@ const JupyterNotebookDiffs = () => {
     }
     // TODO: change to production url
     axios
-      .get(`https://lo.kyso.io/api/v1/reports/diff/${reportId}?sourceFileId=${sourceFileId}&targetFileId=${targetFileId}`, {
+      .get(`../api/v1/reports/diff/${reportId}?sourceFileId=${sourceFileId}&targetFileId=${targetFileId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -98,7 +104,6 @@ const JupyterNotebookDiffs = () => {
 
   return (
     <>
-      <h1>chachi</h1>
       <div id="nbdime-root" className="nbdime-root" />
     </>
   );

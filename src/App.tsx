@@ -7,7 +7,6 @@ const router = createBrowserRouter([{ path: '/kyjupdiff', element: <JupyterNoteb
 const AppWrapper = () => {
   return (
     <>
-      <h1>hola</h1>
       <React.StrictMode>
         <RouterProvider router={router} />
       </React.StrictMode>
