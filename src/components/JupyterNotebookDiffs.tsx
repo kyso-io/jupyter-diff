@@ -39,12 +39,6 @@ const JupyterNotebookDiffs = () => {
   const [searchParams] = useSearchParams();
   const [cookies] = useCookies(['kyso-jwt-token']);
 
-  axios
-    .get(`../api/v1/reports/diff`, {})
-    .then((res: AxiosResponse) => {
-      setApiResult(res.data.data);
-    })
-    .finally(() => {});
   useEffect(() => {
     const reportId: string | null = searchParams.get('reportId');
     const sourceFileId: string | null = searchParams.get('sourceFileId');
@@ -53,7 +47,7 @@ const JupyterNotebookDiffs = () => {
     if (!reportId || !sourceFileId || !targetFileId || !token) {
       return;
     }
-    // TODO: change to production url
+    // Deployed at https://lo.kyso.io/kypupdiff, using relative endpoint is enough
     axios
       .get(`../api/v1/reports/diff/${reportId}?sourceFileId=${sourceFileId}&targetFileId=${targetFileId}`, {
         headers: {
