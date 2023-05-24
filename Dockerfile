@@ -30,7 +30,7 @@ ARG NODE_ENV=production
 ## Export the NODE_ENV to the container environment
 ENV NODE_ENV=${NODE_ENV}
 ### Change the working directory to /app
-COPY --from=builder /app/dist /usr/share/nginx/html
+COPY --from=builder /app/dist /usr/share/nginx/html$PUBLIC_URL
 COPY --from=builder /app/nginx/nginx.conf /etc/nginx/conf.d/default.conf
 EXPOSE 3000
 RUN echo Using $PUBLIC_URL as public url
