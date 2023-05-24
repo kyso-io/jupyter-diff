@@ -26,12 +26,10 @@ FROM nginx:stable-alpine
 ARG NODE_ENV=production
 ## Export the NODE_ENV to the container environment
 ENV NODE_ENV=${NODE_ENV}
-### For security reasons don't run as root
-USER node
 
 ### Change the working directory to /app
-COPY --chown=node:node --from=builder /app/dist /usr/share/nginx/html
-COPY --chown=node:node --from=builder /app/nginx/nginx.conf /etc/nginx/conf.d/default.conf
+COPY --from=builder /app/dist /usr/share/nginx/html
+COPY --from=builder /app/nginx/nginx.conf /etc/nginx/conf.d/default.conf
 EXPOSE 3000
 
 CMD ["nginx", "-g", "daemon off;"]
