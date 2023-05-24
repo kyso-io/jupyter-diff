@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, useRoutes } from 'react-router-dom';
+import { BrowserRouter, useRoutes } from 'react-router-dom';
 import JupyterNotebookDiffs from './components/JupyterNotebookDiffs';
 
 const App = () => {
@@ -8,10 +8,10 @@ const App = () => {
 
 const AppWrapper = () => {
   return (
-    <Router basename=".">
+    <BrowserRouter basename="{process.env.PUBLIC_URL}">
       <h1>hola</h1>
       <App />
-    </Router>
+    </BrowserRouter>
   );
 };
 
