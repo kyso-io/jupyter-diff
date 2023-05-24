@@ -30,8 +30,8 @@ ENV NODE_ENV=${NODE_ENV}
 USER node
 
 ### Change the working directory to /app
-COPY --chown=node:node from=build /app/dist /usr/share/nginx/html
-COPY --chown=node:node from=build /app/nginx/nginx.conf /etc/nginx/conf.d/default.conf
+COPY --chown=node:node from=builder /app/dist /usr/share/nginx/html
+COPY --chown=node:node from=builder /app/nginx/nginx.conf /etc/nginx/conf.d/default.conf
 EXPOSE 3000
 
 CMD ["nginx", "-g", "daemon off;"]
